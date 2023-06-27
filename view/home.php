@@ -5,7 +5,7 @@
 
 <p id="access">
     <a href="/security/login.html">Se connecter</a>
-    <span>&nbsp;-&nbsp;</span>
+    <span>&nbsp;&nbsp;</span>
     <a href="/security/register.html">S'inscrire</a>
 </p>
 </div>
