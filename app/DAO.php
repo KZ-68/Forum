@@ -13,9 +13,13 @@
     abstract class DAO{
 
         private static $host   = 'mysql:host=127.0.0.1;port=3306';
-        private static $dbname = 'forum_dwwm3';
+        // l'adresse ip locale de l'hôte et le port ouvert pour la connexion à mysql 
+        private static $dbname = 'forum';
+        // le nom de la base de données utilisé
         private static $dbuser = 'root';
+        // le nom de l'utilisateur de la base de données
         private static $dbpass = '';
+        // le mot de passe de connexion (inutilisé pour le moment)
 
         private static $bdd;
 
@@ -29,9 +33,14 @@
                 self::$dbuser,
                 self::$dbpass,
                 array(
-                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'",
-                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                    \PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'", 
+                    // constante de MYSQL qui s'execute à la connexion d'un serveur MYSQL, et sera automatiquement re-exécuter lors d'un reconnexion
+                    \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION, 
+                    // Attribut de PDO sur comment sont gérées les erreurs de PDO. 
+                    // Et prends comme valeur ERRMODE_EXCEPTION, les erreurs seront donc lancées comme des PDOExceptions.
                     \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC
+                    // Attribut qui définit le mode de récupération des lignes suivantes du résultat
+                    // Le mode FETCH_ASSOC retourne un tableau indexé par le nom de la colonne
                 )   
             );
         }
