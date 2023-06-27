@@ -1,7 +1,9 @@
 <?php
     namespace App;
 
-    define('DS', DIRECTORY_SEPARATOR); // le caractère séparateur de dossier (/ ou \)
+    define('DS', DIRECTORY_SEPARATOR); 
+    // DIRECTORY_SEPARATOR est une constante prédéfinie de PHP
+    // le caractère séparateur de dossier (/ ou \)
     // meilleure portabilité sur les différents systêmes.
     define('BASE_DIR', dirname(__FILE__).DS); // pour se simplifier la vie
     define('VIEW_DIR', BASE_DIR."view/");     //le chemin où se trouvent les vues
@@ -27,6 +29,7 @@
     }
     //on construit le namespace de la classe Controller à appeller
     $ctrlNS = "controller\\".ucfirst($ctrlname)."Controller";
+    // ucfirst met le premier caractère contenu dans la variable comme argument en Majuscule.
     //on vérifie que le namespace pointe vers une classe qui existe
     if(!class_exists($ctrlNS)){
         //si c'est pas le cas, on choisit le namespace du controller par défaut
