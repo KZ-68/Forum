@@ -8,6 +8,7 @@
     use Model\Managers\CategoryManager;
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
+    use Model\Managers\UserManager;
     
     class ForumController extends AbstractController implements ControllerInterface{
 
@@ -53,11 +54,16 @@
         public function detailTopic($id) {
             
             $topicManager = new TopicManager();
+            $postManager = new PostManager();
+            $userManager = new UserManager();
         
                 return [
                     "view" => VIEW_DIR."forum/detailTopic.php",
                     "data" => [
-                        "topics" => $topicManager->findOneById($id)
+                        "topics" => $topicManager->findOneById($id),
+                        "posts" => $postManager->findPostsByTopicId($id),
+                        "user" => $userManager->findUserByTopicId($id),
+                        "userPosts" => $userManager->findUserByPostId($id)
                     ]
                 ];
             
