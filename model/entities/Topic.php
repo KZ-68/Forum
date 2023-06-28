@@ -7,9 +7,11 @@
 
         private $id;
         private $title;
+        private $textTopic;
+        private $category;
         private $user;
         private $creationdate;
-        private $status;
+        private $closed;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -56,6 +58,46 @@
         }
 
         /**
+         * Get the value of textTopic
+         */ 
+        public function getTextTopic()
+        {
+                return $this->textTopic;
+        }
+
+        /**
+         * Set the value of textTopic
+         *
+         * @return  self
+         */ 
+        public function setTextTopic($textTopic)
+        {
+                $this->textTopic = $textTopic;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of category
+         */ 
+        public function getCategory()
+        {
+                return $this->category;
+        }
+
+        /**
+         * Set the value of category
+         *
+         * @return  self
+         */ 
+        public function setCategory($category)
+        {
+                $this->category = $category;
+
+                return $this;
+        }
+
+        /**
          * Get the value of user
          */ 
         public function getUser()
@@ -88,9 +130,9 @@
         /**
          * Get the value of status
          */ 
-        public function getStatus()
+        public function getClosed()
         {
-                return $this->status;
+                return $this->closed;
         }
 
         /**
@@ -98,10 +140,11 @@
          *
          * @return  self
          */ 
-        public function setClosed($status)
+        public function setClosed($closed)
         {
-                $this->status = $status;
+                $this->closed = $closed;
 
                 return $this;
         }
+
     }
