@@ -1,3 +1,8 @@
+p {
+    font-size: 17px;
+    color: #01053f;
+}
+
 header a {
     text-decoration: none;
     color: white;
@@ -26,9 +31,8 @@ header a {
 }
 
 #forum {
-    border: 1px solid #a6c5df;;
-    margin: 20px;
-    border-radius: 10px;
+    border: 1px solid #a6c5df;
+    padding: 10px 20px;
     background-color: #a6c5df;
 }
 
@@ -45,6 +49,21 @@ header a {
     width: 500px;
     border: 1px solid;
     padding: 15px;
+}
+
+.topic-author {
+    border: 2px solid #6da1ef;
+    border-radius: 5px;
+    margin: 20px 15px;
+    padding: 15px 25px;
+    background-color: #6da1ef;
+}
+
+.topic-posts {
+    border: 1px solid #1764a5;
+    border-radius: 10px;
+    padding: 15px 20px;
+    width: 800px;
 }
 
 #access {
