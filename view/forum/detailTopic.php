@@ -8,17 +8,17 @@ $posts = $result["data"]['posts'];
 ?>
 
 <section class="topic-author">
-<p><?=$user->getUsername()?></p>
+<p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$user->getId()?>"><?=$user->getUsername()?></a></p>
 <h1><?=$topics->getTitle()?></h1> 
 <p><?=$topics->getTextTopic()?></p>
 </section>
 
+
 <?php
 foreach($posts as $post){
-
 ?>
 <div class="topic-posts">
-<p><?=$userPosts->getUsername()?></p>
+<p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$post->getId($id)?>"><?=$userPosts->getUsername($id)?></a></p>
 <p><?=$post->getText()?></p>
 </div>
 <?php
