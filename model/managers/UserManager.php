@@ -17,7 +17,13 @@
 
         public function findUserByTopicId($id){
 
-            $sql = "SELECT *
+            $sql = "SELECT 
+                        u.id_user,
+                        u.username,
+                        t.title,
+                        t.user_id,
+                        t.creationdate,
+                        t.textTopic
                     FROM ".$this->tableName." u
                     INNER JOIN topic t ON t.user_id = u.id_user
                     WHERE t.id_topic = :id";
@@ -30,7 +36,11 @@
 
         public function findUserByPostId($id){
 
-            $sql = "SELECT *
+            $sql = "SELECT
+                        u.id_user,
+                        u.username,
+                        p.id_post,
+                        p.user_id
                     FROM ".$this->tableName." u
                     INNER JOIN post p ON p.user_id = u.id_user
                     WHERE p.id_post = :id";
