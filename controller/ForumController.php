@@ -45,7 +45,8 @@
                 return [
                     "view" => VIEW_DIR."forum/detailCategory.php",
                     "data" => [
-                        "topics" => $topicManager->findTopicsByCategoryId($id)
+                        "topicsCategory" => $topicManager->findTopicsByCategoryId($id),
+                        "topics" => $topicManager->findTopicsId($id)
                     ]
                 ];
             
@@ -64,6 +65,22 @@
                         "posts" => $postManager->findPostsByTopicId($id),
                         "user" => $userManager->findUserByTopicId($id),
                         "userPosts" => $userManager->findUserByPostId($id)
+                    ]
+                ];
+            
+        }
+
+        public function detailUser($id) {
+            
+            $userManager = new UserManager();
+            $topicManager = new TopicManager();
+            
+                return [
+                    "view" => VIEW_DIR."forum/detailUser.php",
+                    "data" => [
+                        "topics" => $topicManager->findOneById($id),
+                        "users" => $userManager->findUserByTopicId($id),
+                        "topicsUser" => $topicManager->findTopicsByUserId($id)
                     ]
                 ];
             
