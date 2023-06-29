@@ -18,7 +18,7 @@ $posts = $result["data"]['posts'];
 foreach($posts as $post){
 ?>
 <div class="topic-posts">
-<p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$post->getId($id)?>"><?=$userPosts->getUsername($id)?></a></p>
+<p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$post->getId()?>"><?=$userPosts->getUsername()?></a></p>
 <p><?=$post->getText()?></p>
 </div>
 <?php

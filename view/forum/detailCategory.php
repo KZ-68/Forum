@@ -1,6 +1,5 @@
 <?php
 
-$topics = $result["data"]['topics'];
 $topicsCategory = $result["data"]['topicsCategory'];
 
 ?>

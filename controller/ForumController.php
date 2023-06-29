@@ -46,7 +46,6 @@
                     "view" => VIEW_DIR."forum/detailCategory.php",
                     "data" => [
                         "topicsCategory" => $topicManager->findTopicsByCategoryId($id),
-                        "topics" => $topicManager->findTopicsId($id)
                     ]
                 ];
             
@@ -78,8 +77,7 @@
                 return [
                     "view" => VIEW_DIR."forum/detailUser.php",
                     "data" => [
-                        "topics" => $topicManager->findOneById($id),
-                        "users" => $userManager->findUserByTopicId($id),
+                        "users" => $userManager->findOneById($id),
                         "topicsUser" => $topicManager->findTopicsByUserId($id)
                     ]
                 ];

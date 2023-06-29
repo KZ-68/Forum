@@ -1,7 +1,6 @@
 <?php
 
 $users = $result["data"]['users'];
-$topics = $result["data"]['topics'];
 $topicsUser = $result["data"]['topicsUser'];
 
 ?>
@@ -14,6 +13,6 @@ $topicsUser = $result["data"]['topicsUser'];
 <?php
 foreach($topicsUser as $topicUser) {
 ?>
-<p><a href="index.php?ctrl=forum&action=detailTopic&id=<?=$topicUser->getId()?>"><?=$topics->getTitle()?></a></p>
+<p><a href="index.php?ctrl=forum&action=detailTopic&id=<?=$topicUser->getId()?>"><?=$topicUser->getTitle()?></a></p>
 <?php
 }
