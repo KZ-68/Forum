@@ -66,6 +66,74 @@ header a {
     width: 800px;
 }
 
+.home-btn {
+    padding: 15px;
+    border: 1px solid #415cac;
+    background-color: #415cac;
+    margin-top: 20px;
+}
+
+.home-btn a {
+    text-decoration: none;
+    color: white;
+}
+
+.section_register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section_createTopic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.createTopic_wrapper {
+    line-height: 33px;
+}
+
+label.username {
+    position: relative;
+    left: 148px;
+}
+
+input#username { 
+    position: relative;
+    left: 151px;
+}
+
+div.email {
+    line-height: 34px;
+}
+
+label.email {
+    position: relative;
+    left: 122px;
+}
+
+input#email {
+    position: relative;
+    left: 125px;
+}
+
+label.emailConfirm {
+    position: relative;
+    left: 63px;
+}
+
+input#confEmail {
+    position: relative;
+    left: 66px;
+}
+
+div.password {
+    line-height: 34px;
+    margin-bottom: 30px;
+}
+
 #access {
     text-align: center;
 }
