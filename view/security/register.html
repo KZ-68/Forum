@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <main>
+        <section class="section_register">
+
+            <h1>Register new Account</h1>
+            
+                <div class="register_wrapper">
+                    <form class='formular_base' action="index.php?action=register" method="post">
+                        
+                        <div class="username">
+                            <label class="username" for="username">Username :</label>
+                            <input type="text" name="username" id="username" required>
+                        </div>
+            
+                        <div class="email">
+                            <label class="email" for="email">E-mail Adress :</label>
+                            <input name="email" type="text" required="1" id="email"/><br/>
+                            <label class="emailConfirm" for="emailConfirm">Confirm E-mail Adress :</label>
+                            <input name="emailConfirm" type="text" id="confEmail" onblur="confirmEmail()"/>
+                        </div>
+                        <div class="password">
+                            <label class="pass" for="pass">Password (8 characters minimum):</label>
+                            <input type="password" id="pass" name="password" minlength="8" required>
+                            <input type="checkbox" onclick="togglePassword()">Show Password<br/>
+                            <label for="pass">Confirm Password:</label>
+                            <input type="password" id="confPass" name="passwordConfirm" minlength="8" onblur="confirmPassword()" required>
+                            <input type="checkbox" onclick="togglePassword()">Show Password<br/>
+                        </div>
+
+                        <input id="submit" type="submit" name="register" value="Register">
+                    </form>
+                </div>
+            
+            </section>
+    </main>
+    <script type ="text/javascript" src="public/js/registration.js"></script>
+</body>
+</html>
+
