@@ -6,10 +6,10 @@
     final class Topic extends Entity{
 
         private $id;
-        private $title;
-        private $textTopic;
         private $category;
         private $user;
+        private $title;
+        private $textTopic;
         private $creationdate;
         private $closed;
 
