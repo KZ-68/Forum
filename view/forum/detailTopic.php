@@ -1,7 +1,6 @@
 <?php
 
 $user = $result["data"]['user'];
-$userPosts = $result["data"]['userPosts'];
 $topics = $result["data"]['topics'];
 $posts = $result["data"]['posts'];
 
@@ -13,13 +12,16 @@ $posts = $result["data"]['posts'];
 <p><?=$topics->getTextTopic()?></p>
 </section>
 
-
 <?php
 foreach($posts as $post){
 ?>
-<div class="topic-posts">
-<p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$post->getId()?>"><?=$userPosts->getUsername()?></a></p>
-<p><?=$post->getText()?></p>
-</div>
+    <div class="topic-posts">
+    <p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getUsername()?></a></p>
+    <p><?=$post->getText()?></p>
+    <p><?=$post->getCreationdate()?></p>
+    </div>
 <?php
 }
+?>
+
+<button class="home-btn"><a href="index.php?ctrl=home&action=home.php">Return Home</a></button>
