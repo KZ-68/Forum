@@ -13,7 +13,11 @@
     class ForumController extends AbstractController implements ControllerInterface{
 
         public function index(){
-          
+            return $this->listCategories();
+        }
+
+        public function listCategories() {
+
             $categoryManager = new CategoryManager();
             
                 return [
@@ -22,7 +26,7 @@
                         "categories" => $categoryManager->findAll(["categoryName", "ASC"])
                     ]
                 ];
-            
+
         }
 
         public function listTopics() {
@@ -63,7 +67,6 @@
                         "topics" => $topicManager->findOneById($id),
                         "posts" => $postManager->findPostsByTopicId($id),
                         "user" => $userManager->findUserByTopicId($id),
-                        "userPosts" => $userManager->findUserByPostId($id)
                     ]
                 ];
             
@@ -73,14 +76,26 @@
             
             $userManager = new UserManager();
             $topicManager = new TopicManager();
+            $postManager = new PostManager();
             
                 return [
                     "view" => VIEW_DIR."forum/detailUser.php",
                     "data" => [
                         "users" => $userManager->findOneById($id),
-                        "topicsUser" => $topicManager->findTopicsByUserId($id)
+                        "topicsUser" => $topicManager->findTopicsByUserId($id),
+                        "postsUser" => $postManager->findPostsByUserId($id)
                     ]
                 ];
             
+        }
+
+        public function createTopic() {
+
+            $topicManager = new TopicManager();
+
+            return [
+                "view" => VIEW_DIR."forum/createTopic.html"
+            ];
+
         }
 }
