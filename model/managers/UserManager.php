@@ -33,21 +33,4 @@
                 $this->className
             );
         }
-
-        public function findUserByPostId($id){
-
-            $sql = "SELECT
-                        u.id_user,
-                        u.username,
-                        p.id_post,
-                        p.user_id
-                    FROM ".$this->tableName." u
-                    INNER JOIN post p ON p.user_id = u.id_user
-                    WHERE p.id_post = :id";
-
-            return $this->getOneOrNullResult(
-                DAO::select($sql, ['id' => $id], false), 
-                $this->className
-            );
-        }
     }
