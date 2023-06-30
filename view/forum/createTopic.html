@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+</head>
+<body>
+    <main>
+        <section class="section_createTopic">
+
+            <h1>Register new Topic</h1>
+            
+                <div class="createTopic_wrapper">
+                    <form class='formular_base' action="index.php?action=createTopic" method="post">
+                        
+                        <div class="title">
+                            <label class="title" for="title">Title :</label>
+                            <input type="text" name="title" id="title" required>
+                        </div>
+            
+                        <div class="textTopic">
+                            <label class="textTopic" for="textTopic">Text :</label>
+                            <input name="textTopic" type="text" required="1" id="textTopic"/><br/>
+                        </div>
+
+                        <input type="checkbox">Confirm Captcha<br/>
+
+
+                        <input id="submit" type="submit" name="createTopic" value="Create">
+                    </form>
+                </div>
+            
+            </section>
+    </main>
+</body>
+
+</html>
