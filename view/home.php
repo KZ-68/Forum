@@ -6,6 +6,6 @@
 <p id="access">
     <a href="/security/login.html">Se connecter</a>
     <span>&nbsp;&nbsp;</span>
-    <a href="index.php?ctrl=security&action=register">S'inscrire</a>
+    <a href="index.php?ctrl=security&action=registerForm">S'inscrire</a>
 </p>
 </div>
