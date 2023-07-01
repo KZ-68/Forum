@@ -12,7 +12,7 @@
             <h1>Register new Account</h1>
             
                 <div class="register_wrapper">
-                    <form class='formular_base' action="index.php?action=register" method="post">
+                    <form class='formular_base' action="index.php?ctrl=security&action=register" method="post">
                         
                         <div class="username">
                             <label class="username" for="username">Username :</label>
@@ -21,20 +21,20 @@
             
                         <div class="email">
                             <label class="email" for="email">E-mail Adress :</label>
-                            <input name="email" type="text" required="1" id="email"/><br/>
+                            <input name="email" type="text" id="email" required="1"><br/>
                             <label class="emailConfirm" for="emailConfirm">Confirm E-mail Adress :</label>
-                            <input name="emailConfirm" type="text" id="confEmail" onblur="confirmEmail()"/>
+                            <input name="emailConfirm" type="text" id="confEmail" onblur="confirmEmail()">
                         </div>
                         <div class="password">
                             <label class="pass" for="pass">Password (8 characters minimum):</label>
                             <input type="password" id="pass" name="password" minlength="8" required>
                             <input type="checkbox" onclick="togglePassword()">Show Password<br/>
                             <label for="pass">Confirm Password:</label>
-                            <input type="password" id="confPass" name="passwordConfirm" minlength="8" onblur="confirmPassword()" required>
+                            <input type="password" id="confPass" name="passwordConfirm" minlength="8" onblur="confirmPassword()">
                             <input type="checkbox" onclick="togglePassword()">Show Password<br/>
                         </div>
 
-                        <input id="submit" type="submit" name="register" value="Register">
+                        <input id="submit" type="submit" name="register" value="register">
                     </form>
                 </div>
             
@@ -43,4 +43,3 @@
     <script type ="text/javascript" src="public/js/registration.js"></script>
 </body>
 </html>
-
