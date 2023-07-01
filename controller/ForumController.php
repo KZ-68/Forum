@@ -89,7 +89,7 @@
             
         }
 
-        public function createTopic() {
+        public function createTopicForm() {
 
             $topicManager = new TopicManager();
 
@@ -97,5 +97,19 @@
                 "view" => VIEW_DIR."forum/createTopic.html"
             ];
 
+        }
+
+        public function createTopic() {
+
+            $topicManager = new TopicManager();
+
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $textTopic = filter_input(INPUT_POST, 'textTopic', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $topicManager->add(['title' => $username, 'textTopic' => $textTopic])
+                ]
+            ]
         }
 }
