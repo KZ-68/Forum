@@ -59,12 +59,15 @@
             );
         }
 
-        //$data = ['username' => 'Squalli', 'password' => 'dfsyfshfbzeifbqefbq', 'email' => 'sql@gmail.com'];
-
+        /* $data équivaut à un table associatif des variables $keys => $values, exemple :
+        $data = ['username' => 'Squalli', 'password' => 'dfsyfshfbzeifbqefbq', 'email' => 'sql@gmail.com']; */
+        
         public function add($data){
-            //$keys = ['username' , 'password', 'email']
+            /* $keys vaut pour le nom de chaque colonne dans la table, exemple :
+            $keys = ['username' , 'password', 'email'] */
             $keys = array_keys($data);
-            //$values = ['Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com']
+            /* $values vaut pour les données entrées dans chacune des colonnes, exemple :
+            $values = ['Squalli', 'dfsyfshfbzeifbqefbq', 'sql@gmail.com'] */
             $values = array_values($data);
             //"username,password,email"
             $sql = "INSERT INTO ".$this->tableName."
