@@ -13,16 +13,28 @@
 
         }
 
-        public function register($data) {
-            
+        public function registerForm() {
+
+            return [
+                "view" => VIEW_DIR."security/register.html"
+            ];
+
+        }
+
+        public function register() {
+            $password = $_POST['password'];
+
             $userManager = new UserManager();
-            
-                return [
-                    "view" => VIEW_DIR."security/register.html",
-                    "data" => [
-                        "userRegistration" => $userManager->add($data)
-                    ]
-                ];
-            
+
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $passwordKey = password_hash($password, PASSWORD_DEFAULT);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $userManager->add(['username' => $username, 'password' => $passwordKey, 'email' => $email])
+                ]
+            ];
+
         }
     }
