@@ -4,6 +4,7 @@ $categories = $result["data"]['categories'];
     
 ?>
 
+<button class="createCategory-btn"><a href="index.php?ctrl=forum&action=createCategoryForm">Create Category</a></button>
 <h1>List Categories</h1>
 
 <?php
