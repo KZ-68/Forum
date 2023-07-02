@@ -89,9 +89,28 @@
             
         }
 
-        public function createTopicForm() {
+        public function createCategoryForm() {
 
-            $topicManager = new TopicManager();
+            return [
+                "view" => VIEW_DIR."forum/createCategory.html"
+            ];
+
+        }
+
+        public function createCategory() {
+
+            $categoryManager = new CategoryManager();
+
+            $categoryName = filter_input(INPUT_POST, 'categoryName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $categoryManager->add(['categoryName' => $categoryName])
+                ]
+            ];
+        }
+
+        public function createTopicForm() {
 
             return [
                 "view" => VIEW_DIR."forum/createTopic.html"
@@ -108,8 +127,9 @@
 
             return [
                 "data" => [
-                    $topicManager->add(['title' => $username, 'textTopic' => $textTopic])
+                    $topicManager->add(['title' => $title, 'textTopic' => $textTopic])
                 ]
-            ]
+            ];
         }
+
 }
