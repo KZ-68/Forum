@@ -34,16 +34,13 @@
             );
         }
 
-        public function updateAvatar($data, $id){
-
-            $keys = array_keys($data);
-            $values = array_values($data);
+        public function updateAvatar($avatar, $id){
 
             $sql = "UPDATE ".$this->tableName." SET
-                    ".implode('', $keys)." = ".implode('', $values)."
-                    WHERE id_".$this->tableName." = $id
+                    avatar = :avatar
+                    WHERE id_".$this->tableName." = :id
                     ";
 
-            return DAO::update($sql, [''.implode(' ', $keys).'' => implode(' ', $values)]); 
+            return DAO::update($sql, [':avatar' => $avatar, ':id' => $id]); 
         }
     }
