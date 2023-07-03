@@ -7,9 +7,9 @@ $postsUser = $result["data"]['postsUser'];
 ?>
 
 <img src="public/img/<?=$users->getAvatar()?>">
-<form action="index.php?ctrl=forum&action=changeAvatar" method="post" enctype="multipart/form-data">
+<form action="index.php?ctrl=forum&action=changeAvatar&id=<?=$users->getId()?>" method="post">
 <label>Change Avatar: </label><br/>
-<input type="file">
+<input type="file" id="avatar" name="avatar">
 <input id="submit" type="submit" name="changeAvatar" value="Confirm">
 </form>
 
