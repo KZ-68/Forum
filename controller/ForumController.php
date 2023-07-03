@@ -89,14 +89,21 @@
         }
 
         public function changeAvatar($id) {
+            
             $userManager = new UserManager();
+            $topicManager = new TopicManager();
+            $postManager = new PostManager();
 
             $avatar = filter_input(INPUT_POST, 'avatar', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             return [
                 "data" => [
-                    $userManager->updateAvatar(['avatar' => $avatar], $id)
-                ]
+                    $userManager->updateAvatar($avatar, $id),
+                    "users" => $userManager->findOneById($id),
+                    "topicsUser" => $topicManager->findTopicsByUserId($id),
+                    "postsUser" => $postManager->findPostsByUserId($id)
+                ],
+                "view" => VIEW_DIR."forum/detailUser.php"
             ];
         }
 
