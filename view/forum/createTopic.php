@@ -1,3 +1,7 @@
+<?php
+    $category = $result["data"]['category'];
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +16,21 @@
             <h1>Create new Topic</h1>
             
                 <div class="createTopic_wrapper">
-                    <form class='formular_base' action="index.php?ctrl=forum&action=createTopic" method="post">
+
+                        <form class='formular_base' action="index.php?ctrl=forum&action=createTopic" method="post">
+                    
+                        <select name="category_id" id="category_id" required>
+                        <option value="category_id" selected>Choose Category</option> 
+                        <?php 
+                        foreach ($category as $categories){ 
                         
+                            echo "<option value = ".$categories->getId().">".$categories->getCategoryName()."</option>";
+
+                        }
+                        ?>  
+                        </select>
+
+
                         <div class="title">
                             <label class="title" for="title">Title :</label>
                             <input type="text" name="title" id="title" required>
@@ -29,6 +46,7 @@
 
                         <input id="submit" type="submit" name="createTopic" value="Create">
                     </form>
+
                 </div>
             
             </section>
