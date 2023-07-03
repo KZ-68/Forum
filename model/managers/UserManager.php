@@ -33,4 +33,17 @@
                 $this->className
             );
         }
+
+        public function updateAvatar($data, $id){
+
+            $keys = array_keys($data);
+            $values = array_values($data);
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    ".implode('', $keys)." = ".implode('', $values)."
+                    WHERE id_".$this->tableName." = $id
+                    ";
+
+            return DAO::update($sql, [''.implode(' ', $keys).'' => implode(' ', $values)]); 
+        }
     }

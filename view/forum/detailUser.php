@@ -7,6 +7,12 @@ $postsUser = $result["data"]['postsUser'];
 ?>
 
 <img src="public/img/<?=$users->getAvatar()?>">
+<form action="index.php?ctrl=forum&action=changeAvatar" method="post" enctype="multipart/form-data">
+<label>Change Avatar: </label><br/>
+<input type="file">
+<input id="submit" type="submit" name="changeAvatar" value="Confirm">
+</form>
+
 <p>User Name : <?=$users->getUsername()?></p>
 <p>Registration Date : <?=$users->getRegistrationdate()?></p>
 

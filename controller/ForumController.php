@@ -86,7 +86,18 @@
                         "postsUser" => $postManager->findPostsByUserId($id)
                     ]
                 ];
-            
+        }
+
+        public function changeAvatar($id) {
+            $userManager = new UserManager();
+
+            $avatar = filter_input(INPUT_POST, 'avatar', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $userManager->updateAvatar(['avatar' => $avatar], $id)
+                ]
+            ];
         }
 
         public function createCategoryForm() {
@@ -112,22 +123,28 @@
 
         public function createTopicForm() {
 
+            $categoryManager = new CategoryManager();
+
             return [
-                "view" => VIEW_DIR."forum/createTopic.html"
+                "view" => VIEW_DIR."forum/createTopic.php",
+                "data" => [
+                    "category" => $categoryManager->findAll()
+                ]
             ];
 
         }
 
-        public function createTopic() {
+        public function createTopic($id) {
 
             $topicManager = new TopicManager();
 
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $textTopic = filter_input(INPUT_POST, 'textTopic', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $categoryId = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             return [
                 "data" => [
-                    $topicManager->add(['title' => $title, 'textTopic' => $textTopic])
+                    $topicManager->add(['category_id' => $categoryId, 'title' => $title, 'textTopic' => $textTopic], $id)
                 ]
             ];
         }
