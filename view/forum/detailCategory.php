@@ -14,6 +14,6 @@ foreach($topicsCategory as $topicCategory){
 }
 ?>
 
-<button class="createTopic-btn"><a href="index.php?ctrl=forum&action=createTopic">Create Topic</a></button>
+<button class="createTopic-btn"><a href="index.php?ctrl=forum&action=createTopicForm">Create Topic</a></button>
 
 <button class="home-btn"><a href="index.php?ctrl=home&action=home.php">Return Home</a></button>
