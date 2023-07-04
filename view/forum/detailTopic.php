@@ -24,4 +24,12 @@ foreach($posts as $post){
 }
 ?>
 
+<form action="index.php?ctrl=forum&action=createPost&id=<?=$topics->getId()?>" method="post">
+<label for="text">Text: </label><br/>
+<textarea id="text" name="text" rows="5" cols="50"></textarea>
+
+<input type="hidden" id="topic_id" name="topic_id" value="<?=$topics->getId()?>">
+<input id="submit" type="submit" name="createPost" value="Add new post">
+</form>
+
 <button class="home-btn"><a href="index.php?ctrl=home&action=home.php">Return Home</a></button>
