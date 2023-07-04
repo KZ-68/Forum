@@ -72,6 +72,34 @@
             
         }
 
+        public function createTopicForm() {
+
+            $categoryManager = new CategoryManager();
+
+            return [
+                "view" => VIEW_DIR."forum/createTopic.php",
+                "data" => [
+                    "category" => $categoryManager->findAll()
+                ]
+            ];
+
+        }
+
+        public function createTopic($id) {
+
+            $topicManager = new TopicManager();
+
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $textTopic = filter_input(INPUT_POST, 'textTopic', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $categoryId = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $topicManager->add(['category_id' => $categoryId, 'title' => $title, 'textTopic' => $textTopic], $id)
+                ]
+            ];
+        }
+
         public function detailUser($id) {
             
             $userManager = new UserManager();
@@ -128,30 +156,22 @@
             ];
         }
 
-        public function createTopicForm() {
-
-            $categoryManager = new CategoryManager();
-
-            return [
-                "view" => VIEW_DIR."forum/createTopic.php",
-                "data" => [
-                    "category" => $categoryManager->findAll()
-                ]
-            ];
-
-        }
-
-        public function createTopic($id) {
-
+        public function createPost($id) {
+            
+            $postManager = new PostManager();
             $topicManager = new TopicManager();
+            $userManager = new UserManager();
 
-            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $textTopic = filter_input(INPUT_POST, 'textTopic', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $categoryId = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_SPECIAL_CHARS);
+            $topicId = filter_input(INPUT_POST, 'topic_id', FILTER_SANITIZE_SPECIAL_CHARS);
 
             return [
+                "view" => VIEW_DIR."forum/detailTopic.php",
                 "data" => [
-                    $topicManager->add(['category_id' => $categoryId, 'title' => $title, 'textTopic' => $textTopic], $id)
+                    $postManager->add(['topic_id' => $topicId ,'text' => $text], $id),
+                    "topics" => $topicManager->findOneById($id),
+                    "posts" => $postManager->findPostsByTopicId($id),
+                    "user" => $userManager->findUserByTopicId($id)
                 ]
             ];
         }
