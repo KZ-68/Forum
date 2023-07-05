@@ -22,10 +22,9 @@
         }
 
         public function register() {
-            $password = $_POST['password'];
-
             $userManager = new UserManager();
 
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $passwordKey = password_hash($password, PASSWORD_DEFAULT);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -36,5 +35,32 @@
                 ]
             ];
 
+        }
+
+        public function loginForm() {
+
+            return [
+                "view" => VIEW_DIR."security/login.html"
+            ];
+
+        }
+
+        public function login() {
+            $userManager = new UserManager();
+
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if (!password_verify($_POST['login_password'], $hash_from_database)) { 
+                exit("Nom d'utilisateur ou mot de passe erroné"); 
+            } 
+            else {
+                return [
+                    "data" => [
+                        $userManager->add(['username' => $username, 'password' => $password])
+                    ]
+                ];
+            }
+            
         }
     }
