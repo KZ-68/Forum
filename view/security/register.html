@@ -29,17 +29,19 @@
                             <label class="pass" for="pass">Password (8 characters minimum):</label>
                             <input type="password" id="pass" name="password" minlength="8" required>
                             <input type="checkbox" onclick="togglePassword()">Show Password<br/>
-                            <label for="pass">Confirm Password:</label>
-                            <input type="password" id="confPass" name="passwordConfirm" minlength="8" onblur="confirmPassword()">
-                            <input type="checkbox" onclick="togglePassword()">Show Password<br/>
+                            <div class="confirmPassword">
+                                <label for="confPass">Confirm Password:</label>
+                                <input type="password" id="confPass" name="confirmPassword" minlength="8" onblur="confirmPassword()">
+                                <input type="checkbox" onclick="togglePassword()">Show Password<br/>
+                            </div>
                         </div>
 
-                        <input id="submit" type="submit" name="register" value="register">
+                        <input id="submitRegister" type="submit" name="register" value="register">
                     </form>
                 </div>
             
             </section>
     </main>
-    <script type ="text/javascript" src="public/js/registration.js"></script>
+    <script type ="text/javascript" src="public/js/formsActions.js"></script>
 </body>
 </html>
