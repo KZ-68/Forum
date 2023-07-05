@@ -39,8 +39,8 @@
                         // }
                         // else{
                             ?>
-                            <a class="link-left" href="./view/security/login.php">Connexion</a>
-                            <a class="link-left" href="/security/register.html">Inscription</a>
+                            <a class="link-left" href="index.php?ctrl=security&action=loginForm">Sign in</a>
+                            <a class="link-left" href="index.php?ctrl=security&action=registerForm">Register</a>
                             <a class="link-left" href="index.php?ctrl=forum&action=listCategories">Categories List</a>
                             <a class="link-left" href="index.php?ctrl=forum&action=listTopics">Topics List</a>
                         <?php
