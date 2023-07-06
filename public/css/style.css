@@ -67,6 +67,10 @@ header a {
     margin-bottom: 20px;
 }
 
+img.post-avatar {
+    width: 50px;
+}
+
 .postsArea {
     border: 2px solid #4e5e7e;
     padding: 10px;
