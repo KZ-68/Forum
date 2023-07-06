@@ -49,4 +49,17 @@
                 $this->className
             );
         }
+
+        public function deleteTopic($id){
+            $sql = "DELETE FROM post
+                    WHERE ".$this->tableName."_id = :id;
+                    
+                    DELETE FROM ".$this->tableName."
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return 
+                DAO::delete($sql, ['id' => $id]);
+                     
+        }
     }
