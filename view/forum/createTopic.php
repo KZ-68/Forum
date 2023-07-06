@@ -18,31 +18,21 @@
                 <div class="createTopic_wrapper">
 
                         <form class='formular_base' action="index.php?ctrl=forum&action=createTopic" method="post">
-                    
-                        <select name="category_id" id="category_id" required>
-                        <option value="category_id" selected>Choose Category</option> 
-                        <?php 
-                        foreach ($category as $categories){ 
-                        
-                            echo "<option value = ".$categories->getId().">".$categories->getCategoryName()."</option>";
-
-                        }
-                        ?>  
-                        </select>
-
 
                         <div class="title">
                             <label class="title" for="title">Title :</label>
                             <input type="text" name="title" id="title" required>
                         </div>
             
-                        <div class="textTopic">
-                            <label class="textTopic" for="textTopic">Text :</label>
-                            <input name="textTopic" type="text" required="1" id="textTopic"/><br/>
+                        <div class="text">
+                            <label class="text" for="text">Text :</label>
+                            <input name="text" type="text" required="1" id="text"/><br/>
                         </div>
 
                         <input type="checkbox">Confirm Captcha<br/>
 
+                        <input type="hidden" name="category_id" value="<?=$category->getId()?>">
+                        
 
                         <input id="submit" type="submit" name="createTopic" value="Create">
                     </form>
