@@ -2,25 +2,27 @@
 
 $user = $result["data"]['user'];
 $topics = $result["data"]['topics'];
-$posts = $result["data"]['posts'];
+$postsUser = $result["data"]['postsUser'];
+
 
 ?>
-
-<section class="topic-author">
-<p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$user->getId()?>"><?=$user->getUsername()?></a></p>
-<h1><?=$topics->getTitle()?></h1> 
-<p><?=$topics->getTextTopic()?></p>
-</section>
 
 <?php
-foreach($posts as $post){
+foreach($postsUser as $postUser){
 ?>
     <div class="topic-posts">
-    <h3>Re: <?=$topics->getTitle()?></h3> 
-    <p><a href="index.php?ctrl=forum&action=detailUser&id=<?=$post->getUser()->getId()?>"><?=$post->getUser()->getUsername()?></a></p>
-    <p><?=$post->getText()?></p>
-    <p><?=$post->getCreationdate()?></p>
+    <h3><?=$topics->getTitle()?></h3> 
+    <p>
+    <img class="post-avatar" src="public/img/<?=$postUser->getUser()->getAvatar()?>">
+        <a href="index.php?ctrl=forum&action=detailUser&id=<?=$postUser->getUser()->getId()?>"><?=$postUser->getUser()->getUsername()?></a>
+    </p>
+    <p><?=$postUser->getText()?></p>
+    <p><?=$postUser->getCreationdate()?></p>
     </div>
+    <form action="index.php?ctrl=forum&action=deletePost&id=<?=$postUser->getId()?>" method="post">
+    <input type="submit" name="deletePost" value="Delete Post">
+    </form>
+    <?=var_dump($postUser->getId())?>
 <?php
 }
 ?>
