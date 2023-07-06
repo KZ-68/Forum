@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `category` (
   `id_category` int NOT NULL AUTO_INCREMENT,
   `categoryName` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id_category`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Listage des données de la table forum.category : ~0 rows (environ)
+-- Listage des données de la table forum.category : ~2 rows (environ)
 INSERT INTO `category` (`id_category`, `categoryName`) VALUES
 	(1, 'Plateformer'),
 	(2, 'Strategy');
@@ -37,17 +37,21 @@ CREATE TABLE IF NOT EXISTS `post` (
   `user_id` int DEFAULT NULL,
   `topic_id` int DEFAULT NULL,
   `text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `creationDate` datetime DEFAULT NULL,
+  `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`user_id`) USING BTREE,
   KEY `id_topic` (`topic_id`) USING BTREE,
   CONSTRAINT `FK_post_topic` FOREIGN KEY (`topic_id`) REFERENCES `topic` (`id_topic`),
   CONSTRAINT `FK_post_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Listage des données de la table forum.post : ~0 rows (environ)
+-- Listage des données de la table forum.post : ~5 rows (environ)
 INSERT INTO `post` (`id_post`, `user_id`, `topic_id`, `text`, `creationDate`) VALUES
-	(1, 1, 1, 'Thanks for the offer Marie, I didn\'t start to play this game for now.\r\nBut if I need your help now I know where to ask !', '2023-06-11 15:20:00');
+	(1, 2, 1, 'Anyone want help ? I finished Mario Odyssey so I can offer tips...', '2023-06-11 13:00:00'),
+	(2, 1, 1, 'Thanks for the offer Marie, I didn\'t start to play this game for now.\r\nBut if I need your help now I know where to ask !', '2023-06-11 15:20:00'),
+	(3, 2, 2, 'Good idea ! It could be useful for many people !', '2023-06-08 18:35:00'),
+	(4, 3, 1, 'For the moment i didn\'t need help but in case i\'m blocked this could be a good idea', '2023-06-12 08:35:00'),
+	(5, 3, 3, 'test', '2023-06-15 22:00:00');
 
 -- Listage de la structure de table forum. topic
 CREATE TABLE IF NOT EXISTS `topic` (
@@ -55,39 +59,40 @@ CREATE TABLE IF NOT EXISTS `topic` (
   `category_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `textTopic` text COLLATE utf8mb4_general_ci,
-  `creationDate` datetime DEFAULT NULL,
+  `creationDate` datetime DEFAULT CURRENT_TIMESTAMP,
   `closed` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_topic`),
   KEY `id_category` (`category_id`) USING BTREE,
   KEY `id_user` (`user_id`) USING BTREE,
   CONSTRAINT `FK_topic_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`id_category`),
   CONSTRAINT `FK_topic_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Listage des données de la table forum.topic : ~0 rows (environ)
-INSERT INTO `topic` (`id_topic`, `category_id`, `user_id`, `title`, `textTopic`, `creationDate`, `closed`) VALUES
-	(1, 1, 2, 'Mario Odyssey Tricks and Tips', 'Anyone want help ? I finished Mario Odyssey so I can offer tips... ', '2023-06-11 13:00:00', 0),
-	(2, 2, 1, 'Starcraft 2 Discussion Board', 'This is the main topic for Starcraft 2, help request and spoil can be post here', '2023-06-02 15:25:00', 0);
+-- Listage des données de la table forum.topic : ~3 rows (environ)
+INSERT INTO `topic` (`id_topic`, `category_id`, `user_id`, `title`, `creationDate`, `closed`) VALUES
+	(1, 1, 2, 'Mario Odyssey Tricks and Tips', '2023-06-11 13:00:00', 0),
+	(2, 2, 1, 'Starcraft 2 Discussion Board', '2023-06-02 15:25:00', 0),
+	(3, 1, 3, 'test', '2023-06-12 11:00:00', 0);
 
 -- Listage de la structure de table forum. user
 CREATE TABLE IF NOT EXISTS `user` (
   `id_user` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `username` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `role` json DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `registrationDate` datetime DEFAULT NULL,
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `registrationDate` datetime DEFAULT CURRENT_TIMESTAMP,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'sbcf-default-avatar.png',
   PRIMARY KEY (`id_user`),
-  UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Listage des données de la table forum.user : ~0 rows (environ)
+-- Listage des données de la table forum.user : ~4 rows (environ)
 INSERT INTO `user` (`id_user`, `email`, `username`, `role`, `password`, `registrationDate`, `avatar`) VALUES
-	(1, 'john.doe@gmail.com', 'John885', NULL, 'j0nH@BtZ.54', '2023-05-18 11:00:00', NULL),
-	(2, 'marie.tempe@outlook.com', 'MarieT42', NULL, 'Vfld.785@Rg5', '2023-06-01 15:00:00', NULL);
+	(1, 'john.doe@gmail.com', 'John885', NULL, 'j0nH@BtZ.54', '2023-05-18 11:00:00', 'sbcf-default-avatar.png'),
+	(2, 'marie.tempe@outlook.com', 'MarieT42', NULL, 'Vfld.785@Rg5', '2023-06-01 15:00:00', 'sbcf-default-avatar.png'),
+	(3, 'marc.durand@gmail.com', 'Marc689', NULL, 'Dg@39qZG.Mp', '2023-05-22 09:35:00', 'sbcf-default-avatar.png'),
+	(4, 'zitnik.kevin@gmail.com', 'Testuser', NULL, '$2y$10$Ij0MEJvxkNGVweyAJIX81eU4Mk3co1J33CnS12tlzMpiRouUovfHe', '2023-07-05 23:51:48', 'sbcf-default-avatar.png');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
