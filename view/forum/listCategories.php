@@ -10,7 +10,12 @@ $categories = $result["data"]['categories'];
 <?php
 foreach($categories as $category){
 ?>
-    <p><a class='links' href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a></p>
+    <p>
+        <a class='links' href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>"><?=$category->getCategoryName()?></a>
+        <form action="index.php?ctrl=forum&action=deleteCategory&id=<?=$category->getId()?>" method="post">
+            <input type="submit" name="deleteCategory" value="Delete Category">
+        </form>
+    </p>
 <?php
 }
 ?>
