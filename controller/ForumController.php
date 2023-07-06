@@ -29,6 +29,58 @@
 
         }
 
+
+        public function detailCategory($id) {
+            
+            $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
+            
+                return [
+                    "view" => VIEW_DIR."forum/detailCategory.php",
+                    "data" => [
+                        "topicsCategory" => $topicManager->findTopicsByCategoryId($id),
+                        "category" => $categoryManager->findOneById($id)
+                    ]
+                ];
+            
+        }
+
+        public function createCategoryForm() {
+
+            return [
+                "view" => VIEW_DIR."forum/createCategory.html"
+            ];
+
+        }
+
+        public function createCategory() {
+
+            $categoryManager = new CategoryManager();
+
+            $categoryName = filter_input(INPUT_POST, 'categoryName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $categoryManager->add(['categoryName' => $categoryName]),
+                    "categories" => $categoryManager->findAll(["categoryName", "ASC"])
+                ],
+                "view" => VIEW_DIR."forum/listCategories.php"
+            ];
+        }
+
+        public function deleteCategory($id) {
+            
+            $categoryManager = new CategoryManager();
+
+            return [
+                "data" => [
+                    $categoryManager->delete($id),
+                    "categories" => $categoryManager->findAll(["categoryName", "ASC"])
+                ],
+                "view" => VIEW_DIR."forum/listCategories.php"
+            ];
+        }
+
         public function listTopics() {
             
             $topicManager = new TopicManager();
@@ -37,19 +89,6 @@
                     "view" => VIEW_DIR."forum/listTopics.php",
                     "data" => [
                         "topics" => $topicManager->findAll(["creationdate", "DESC"])
-                    ]
-                ];
-            
-        }
-
-        public function detailCategory($id) {
-            
-            $topicManager = new TopicManager();
-            
-                return [
-                    "view" => VIEW_DIR."forum/detailCategory.php",
-                    "data" => [
-                        "topicsCategory" => $topicManager->findTopicsByCategoryId($id),
                     ]
                 ];
             
@@ -65,38 +104,55 @@
                     "view" => VIEW_DIR."forum/detailTopic.php",
                     "data" => [
                         "topics" => $topicManager->findOneById($id),
-                        "posts" => $postManager->findPostsByTopicId($id),
-                        "user" => $userManager->findUserByTopicId($id),
+                        "postsUser" => $postManager->findPostsByTopicId($id),
+                        "user" => $userManager->findUserByTopicId($id)
                     ]
                 ];
             
         }
 
-        public function createTopicForm() {
+        public function createTopicForm($id) {
 
             $categoryManager = new CategoryManager();
+
 
             return [
                 "view" => VIEW_DIR."forum/createTopic.php",
                 "data" => [
-                    "category" => $categoryManager->findAll()
+                    "category" => $categoryManager->findOneById($id)
                 ]
             ];
 
         }
 
-        public function createTopic($id) {
-
+        public function createTopic() {
             $topicManager = new TopicManager();
+            $postManager = new PostManager();
 
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $textTopic = filter_input(INPUT_POST, 'textTopic', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $categoryId = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $idTopic = $topicManager->add(['category_id' => $categoryId, 'title' => $title]);
 
             return [
                 "data" => [
-                    $topicManager->add(['category_id' => $categoryId, 'title' => $title, 'textTopic' => $textTopic], $id)
+                    $postManager->add(['topic_id' => $idTopic, 'text' => $text])
                 ]
+            ];
+        }
+
+        public function deleteTopic($id) {
+            
+            $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
+
+            return [
+                "data" => [
+                    $topicManager->deleteTopic($id),
+                    "topicsCategory" => $topicManager->findTopicsByCategoryId($id),
+                    "category" => $categoryManager->findOneById($id)
+                ],
+                "view" => VIEW_DIR."forum/detailCategory.php"
             ];
         }
 
@@ -135,27 +191,7 @@
             ];
         }
 
-        public function createCategoryForm() {
-
-            return [
-                "view" => VIEW_DIR."forum/createCategory.html"
-            ];
-
-        }
-
-        public function createCategory() {
-
-            $categoryManager = new CategoryManager();
-
-            $categoryName = filter_input(INPUT_POST, 'categoryName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-            return [
-                "data" => [
-                    $categoryManager->add(['categoryName' => $categoryName])
-                ]
-            ];
-        }
-
+        
         public function createPost($id) {
             
             $postManager = new PostManager();
@@ -170,8 +206,19 @@
                 "data" => [
                     $postManager->add(['topic_id' => $topicId ,'text' => $text], $id),
                     "topics" => $topicManager->findOneById($id),
-                    "posts" => $postManager->findPostsByTopicId($id),
+                    "postsUser" => $postManager->findPostsByTopicId($id),
                     "user" => $userManager->findUserByTopicId($id)
+                ]
+            ];
+        }
+
+        public function deletePost($id) {
+            
+            $postManager = new PostManager();
+
+            return [
+                "data" => [
+                    $postManager->delete($id)
                 ]
             ];
         }
