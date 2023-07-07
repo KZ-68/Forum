@@ -9,7 +9,6 @@
         private $category;
         private $user;
         private $title;
-        private $textTopic;
         private $creationdate;
         private $closed;
 
@@ -53,26 +52,6 @@
         public function setTitle($title)
         {
                 $this->title = $title;
-
-                return $this;
-        }
-
-        /**
-         * Get the value of textTopic
-         */ 
-        public function getTextTopic()
-        {
-                return $this->textTopic;
-        }
-
-        /**
-         * Set the value of textTopic
-         *
-         * @return  self
-         */ 
-        public function setTextTopic($textTopic)
-        {
-                $this->textTopic = $textTopic;
 
                 return $this;
         }
