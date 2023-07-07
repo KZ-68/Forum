@@ -25,8 +25,8 @@
                         </div>
             
                         <div class="text">
-                            <label class="text" for="text">Text :</label>
-                            <input name="text" type="text" required="1" id="text"/><br/>
+                            <label class="text" for="text">Text :</label><br/>
+                            <textarea id="text" name="text" rows="5" cols="50"></textarea>
                         </div>
 
                         <input type="checkbox">Confirm Captcha<br/>
