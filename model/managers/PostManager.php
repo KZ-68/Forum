@@ -55,4 +55,14 @@
             );
         }
 
+        public function updatePost($text, $id){
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    text = :text
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':text' => $text, ':id' => $id]); 
+        }
+
     }
