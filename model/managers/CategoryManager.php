@@ -15,4 +15,13 @@
             parent::connect();
         }
 
+        public function updateCategory($categoryName, $id){
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    categoryName = :categoryName
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':categoryName' => $categoryName, ':id' => $id]); 
+        }
     }
