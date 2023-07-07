@@ -50,6 +50,16 @@
             );
         }
 
+        public function updateTopic($title, $id){
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    title = :title
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':title' => $title, ':id' => $id]); 
+        }
+
         public function deleteTopic($id){
             $sql = "DELETE FROM post
                     WHERE ".$this->tableName."_id = :id;
