@@ -6,10 +6,11 @@ $postsUser = $result["data"]['postsUser'];
 
 
 ?>
-
+<a href="index.php?ctrl=forum&action=updateTopicForm&id=<?=$topics->getId()?>">Modify the Topic</a>
 <?php
 foreach($postsUser as $postUser){
 ?>
+    <a href="index.php?ctrl=forum&action=updatePostForm&id=<?=$postUser->getId()?>">Modify the post</a>
     <div class="topic-posts">
     <h3><?=$topics->getTitle()?></h3> 
     <p>
