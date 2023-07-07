@@ -29,7 +29,6 @@
 
         }
 
-
         public function detailCategory($id) {
             
             $topicManager = new TopicManager();
@@ -66,6 +65,33 @@
                 ],
                 "view" => VIEW_DIR."forum/listCategories.php"
             ];
+        }
+
+        public function updateCategoryForm($id) {
+
+            $categoryManager = new CategoryManager();
+
+            return [
+                "view" => VIEW_DIR."forum/updateCategoryForm.php",
+                "data" => [
+                    "category" => $categoryManager->findOneById($id)
+                ]
+            ];
+
+        }
+
+        public function updateCategory($id) {
+
+            $categoryManager = new CategoryManager();
+
+            $categoryName = filter_input(INPUT_POST, 'categoryName', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $categoryManager->updateCategory($categoryName, $id)
+                ]
+            ];
+
         }
 
         public function deleteCategory($id) {
@@ -141,6 +167,36 @@
             ];
         }
 
+        public function updateTopicForm($id) {
+
+            $topicManager = new TopicManager();
+
+            return [
+                "view" => VIEW_DIR."forum/updateTopicForm.php",
+                "data" => [
+                    "topic" => $topicManager->findOneById($id)
+                ]
+            ];
+
+        }
+
+        public function updateTopic($id) {
+
+            $topicManager = new TopicManager();
+            $postManager = new PostManager();
+
+            $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $idTopic = $topicManager->updateTopic($title, $id);
+
+            return [
+                "data" => [
+                    $postManager->updatePost($text, $idTopic)
+                ]
+            ];
+
+        }
+
         public function deleteTopic($id) {
             
             $topicManager = new TopicManager();
@@ -210,6 +266,33 @@
                     "user" => $userManager->findUserByTopicId($id)
                 ]
             ];
+        }
+
+        public function updatePostForm($id) {
+
+            $postManager = new PostManager();
+
+            return [
+                "view" => VIEW_DIR."forum/updatePostForm.php",
+                "data" => [
+                    "post" => $postManager->findOneById($id)
+                ]
+            ];
+
+        }
+
+        public function updatePost($id) {
+
+            $postManager = new PostManager();
+
+            $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $postManager->updatePost($text, $id)
+                ]
+            ];
+
         }
 
         public function deletePost($id) {
