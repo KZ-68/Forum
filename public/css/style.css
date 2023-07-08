@@ -101,6 +101,18 @@ input#submitPost {
     color: white;
 }
 
+.backTo-btn {
+    padding: 15px;
+    border: 1px solid #415cac;
+    background-color: #415cac;
+    margin-top: 20px;
+}
+
+.backTo-btn a {
+    text-decoration: none;
+    color: white;
+}
+
 .section_register {
     display: flex;
     flex-direction: column;
