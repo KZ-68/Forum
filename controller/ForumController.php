@@ -271,11 +271,13 @@
         public function updatePostForm($id) {
 
             $postManager = new PostManager();
+            $topicManager = new TopicManager();
 
             return [
                 "view" => VIEW_DIR."forum/updatePostForm.php",
                 "data" => [
-                    "post" => $postManager->findOneById($id)
+                    "post" => $postManager->findOneById($id),
+                    "topic" => $topicManager->findOneById($id)
                 ]
             ];
 
