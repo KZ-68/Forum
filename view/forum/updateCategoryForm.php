@@ -28,6 +28,7 @@
                 </div>
             
             </section>
+            <button class="backTo-btn"><a href="index.php?ctrl=forum&action=listCategories">Back to the Categories</a></button>
     </main>
 </body>
 
