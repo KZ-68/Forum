@@ -43,16 +43,15 @@
             return DAO::update($sql, [':avatar' => $avatar, ':id' => $id]); 
         }
 
-        public function findHash() {
-            $sql = "SELECT
-                        u.password,
-                        u.email
+        public function checkPass($username) {
+            $sql = "SELECT u.password
                     FROM ".$this->tableName." u 
-                    WHERE u.password = ':password' AND u.email = ':email'";
+                    WHERE u.username = :username";
             
             return $this->getOneOrNullResult(
-                DAO::select($sql, [':password' => 'password', ':email' => 'email'], false), 
+                DAO::select($sql, ['username' => $username], false), 
                 $this->className
             );
         }
+
     }
