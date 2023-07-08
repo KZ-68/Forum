@@ -37,6 +37,7 @@
                 </div>
             
             </section>
+            <button class="backTo-btn"><a href="index.php?ctrl=forum&action=detailTopic&id=<?=$topic->getId()?>">Back to the Topic</a></button> 
     </main>
 </body>
 
