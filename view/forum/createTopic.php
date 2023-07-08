@@ -40,6 +40,7 @@
                 </div>
             
             </section>
+            <button class="backTo-btn"><a href="index.php?ctrl=forum&action=detailCategory&id=<?=$category->getId()?>">Back to the Category</a></button>
     </main>
 </body>
 

@@ -39,4 +39,5 @@ foreach($postsUser as $postUser){
 </form>
 </div>
 
-<button class="home-btn"><a href="index.php?ctrl=home&action=home.php">Return Home</a></button>
+<button class="home-btn"><a href="index.php?ctrl=home&action=">Return Home</a></button>
+<button class="backTo-btn"><a href="index.php?ctrl=forum&action=detailCategory&id=<?=$topics->getCategory()->getId()?>">Back to the Category</a></button>
