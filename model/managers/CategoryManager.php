@@ -24,4 +24,12 @@
 
             return DAO::update($sql, [':categoryName' => $categoryName, ':id' => $id]); 
         }
+
+        public function deleteCategory($id){
+            $sql = "DELETE FROM ".$this->tableName."
+                    WHERE id_".$this->tableName." = :id";
+
+            return DAO::delete($sql, ['id' => $id]);
+                     
+        }
     }
