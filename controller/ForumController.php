@@ -97,10 +97,12 @@
         public function deleteCategory($id) {
             
             $categoryManager = new CategoryManager();
+            $topicManager = new TopicManager();
 
             return [
                 "data" => [
-                    $categoryManager->delete($id),
+                    $topicManager->removeCategoryIdInTopics($id),
+                    $categoryManager->deleteCategory($id),
                     "categories" => $categoryManager->findAll(["categoryName", "ASC"])
                 ],
                 "view" => VIEW_DIR."forum/listCategories.php"
@@ -152,6 +154,7 @@
         }
 
         public function createTopic() {
+            
             $topicManager = new TopicManager();
             $postManager = new PostManager();
 
