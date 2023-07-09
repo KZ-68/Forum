@@ -50,6 +50,14 @@
             );
         }
 
+        public function removeCategoryIdInTopics($id) {
+            $sql = "UPDATE topic SET 
+                    category_id = NULL
+                    WHERE category_id = :id";
+
+            return DAO::update($sql, [':id' => $id]); 
+        }
+
         public function updateTopic($title, $id){
 
             $sql = "UPDATE ".$this->tableName." SET
@@ -71,5 +79,15 @@
             return 
                 DAO::delete($sql, ['id' => $id]);
                      
+        }
+
+        public function moveTopicTo($categoryId, $id) {
+            
+            $sql = "UPDATE ".$this->tableName." SET
+                    category_id = :category_id
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':category_id' => $categoryId, ':id' => $id]); 
         }
     }
