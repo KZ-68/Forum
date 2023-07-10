@@ -6,7 +6,7 @@ $categories = $result["data"]['categories'];
 
 <button class="createCategory-btn"><a href="index.php?ctrl=forum&action=createCategoryForm">Create Category</a></button>
 
-<h1>List Categories</h1>
+<h1>Categories List</h1>
 
 <?php
 foreach($categories as $category){
@@ -23,3 +23,4 @@ foreach($categories as $category){
 ?>
 
 <button class="home-btn"><a href="index.php?ctrl=home&action=home.php">Return Home</a></button>
+<button class="home-btn"><a href="index.php?ctrl=home&action=moveTopic">Move Topics</a></button>
