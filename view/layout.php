@@ -31,23 +31,21 @@
                     <div id="nav-left">
                     <?php
                         
-                        // if(App\Session::getUser()){
+                        if(App\Session::getUser()){
                             ?>
-                            <a class="link-left" href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()?></a>
+                            <a class="link-left" href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?=App\Session::getUser()?></a>
                             <a class="link-left" href="/security/logout.html">Déconnexion</a>
                             <?php
-                        // }
-                        // else{
+                        }
+                        else{
                             ?>
                             <a class="link-left" href="index.php?ctrl=security&action=loginForm">Sign in</a>
                             <a class="link-left" href="index.php?ctrl=security&action=registerForm">Register</a>
+                        <?php
+                        }
+                    ?>
                             <a class="link-left" href="index.php?ctrl=forum&action=listCategories">Categories List</a>
                             <a class="link-left" href="index.php?ctrl=forum&action=listTopics">Topics List</a>
-                        <?php
-                        // }
-                   
-                        
-                    ?>
                     </div>
                 </nav>
             </header>
