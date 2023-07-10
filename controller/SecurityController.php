@@ -49,18 +49,27 @@
             
             $userManager = new UserManager();
             
-            $passwordLogin = $_POST['password'];
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             
-            $hash = $userManager->checkPass($username);
+            $user = $userManager->findUserByUsername($username);
 
-            if (!password_verify($passwordLogin, $hash)) { 
-                exit("Nom d'utilisateur ou mot de passe erroné"); 
-            } 
-            else {
+            if ($user) {
+                $userManager->checkPass($username);
+                password_verify($password, $user->getPassword()); 
+                // On récupère le mot de passe
+            } else {
+                exit("Username not found !");
+            }
+
+            if ($userManager->checkPass($username) && password_verify($password, $user->getPassword())) {
+                $session = new Session;
                 return [
-                    "view" => VIEW_DIR."home.php"
+                    $session->setUser($user),
+                    "view" => VIEW_DIR."forum/listCategories.php"
                 ];
+            } else {
+                exit("Incorrect Password !");
             }
             
         }
