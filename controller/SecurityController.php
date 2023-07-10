@@ -66,7 +66,7 @@
                 $session = new Session;
                 return [
                     $session->setUser($user),
-                    "view" => VIEW_DIR."forum/listCategories.php"
+                    "view" => VIEW_DIR."forum/categoriesList.php"
                 ];
             } else {
                 exit("Incorrect Password !");

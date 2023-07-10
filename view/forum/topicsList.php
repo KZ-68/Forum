@@ -4,7 +4,7 @@ $topics = $result["data"]['topics'];
     
 ?>
 
-<h1>List topics</h1>
+<h1>Topics List</h1>
 
 <?php
 foreach($topics as $topic ){

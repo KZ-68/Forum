@@ -13,15 +13,15 @@
     class ForumController extends AbstractController implements ControllerInterface{
 
         public function index(){
-            return $this->listCategories();
+            return $this->categoriesList();
         }
 
-        public function listCategories() {
+        public function categoriesList() {
 
             $categoryManager = new CategoryManager();
             
                 return [
-                    "view" => VIEW_DIR."forum/listCategories.php",
+                    "view" => VIEW_DIR."forum/categoriesList.php",
                     "data" => [
                         "categories" => $categoryManager->findAll(["categoryName", "ASC"])
                     ]
@@ -63,7 +63,7 @@
                     $categoryManager->add(['categoryName' => $categoryName]),
                     "categories" => $categoryManager->findAll(["categoryName", "ASC"])
                 ],
-                "view" => VIEW_DIR."forum/listCategories.php"
+                "view" => VIEW_DIR."forum/categoriesList.php"
             ];
         }
 
@@ -105,16 +105,16 @@
                     $categoryManager->deleteCategory($id),
                     "categories" => $categoryManager->findAll(["categoryName", "ASC"])
                 ],
-                "view" => VIEW_DIR."forum/listCategories.php"
+                "view" => VIEW_DIR."forum/categoriesList.php"
             ];
         }
 
-        public function listTopics() {
+        public function topicsList() {
             
             $topicManager = new TopicManager();
             
                 return [
-                    "view" => VIEW_DIR."forum/listTopics.php",
+                    "view" => VIEW_DIR."forum/topicsList.php",
                     "data" => [
                         "topics" => $topicManager->findAll(["creationdate", "DESC"])
                     ]

@@ -44,8 +44,8 @@
                         <?php
                         }
                     ?>
-                            <a class="link-left" href="index.php?ctrl=forum&action=listCategories">Categories List</a>
-                            <a class="link-left" href="index.php?ctrl=forum&action=listTopics">Topics List</a>
+                            <a class="link-left" href="index.php?ctrl=forum&action=categoriesList">Categories List</a>
+                            <a class="link-left" href="index.php?ctrl=forum&action=topicsList">Topics List</a>
                     </div>
                 </nav>
             </header>

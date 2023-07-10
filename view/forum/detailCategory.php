@@ -22,5 +22,5 @@ foreach($topicsCategory as $topicCategory){
 
 <button class="createTopic-btn"><a href="index.php?ctrl=forum&action=createTopicForm&id=<?=$category->getId()?>">Create Topic</a></button>
 
-<button class="backTo-btn"><a href="index.php?ctrl=forum&action=listCategories">Back to the Categories</a></button>
+<button class="backTo-btn"><a href="index.php?ctrl=forum&action=categoriesList">Back to the Categories</a></button>
 <button class="home-btn"><a href="index.php?ctrl=home&action=home.php">Return Home</a></button>
