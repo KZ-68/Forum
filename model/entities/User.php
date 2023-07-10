@@ -91,7 +91,7 @@
          *
          * @return  self
          */ 
-        public function setRole($role)
+        public function hasRole($role)
         {
                 $this->role = $role;
 
