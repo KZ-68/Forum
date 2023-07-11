@@ -54,6 +54,24 @@
             );
         }
 
+        public function findUserByEmail($email) {
+            $sql = "SELECT 
+                        u.id_user,
+                        u.email,
+                        u.username,
+                        u.role,
+                        u.password,
+                        u.registrationdate,
+                        u.avatar
+                    FROM ".$this->tableName." u
+                    WHERE u.email = :email";
+                    
+            return $this->getOneOrNullResult(
+            DAO::select($sql, ['email' => $email], false), 
+            $this->className
+            );
+        }
+
         public function findUserByUsername($username) {
             $sql = "SELECT 
                         u.id_user,
