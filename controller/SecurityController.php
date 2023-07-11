@@ -25,15 +25,27 @@
             $userManager = new UserManager();
 
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $confirmPass = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $passwordKey = password_hash($password, PASSWORD_DEFAULT);
             $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            return [
-                "data" => [
-                    $userManager->add(['username' => $username, 'password' => $passwordKey, 'email' => $email])
-                ]
-            ];
+            $emailExist = $userManager->findUserByEmail($email); 
+            $usernameExist = $userManager->findUserByUsername($username);
+
+            if ($emailExist) {
+                exit("Email adress already exist");
+            } else if ($usernameExist) {
+                exit("Username already exist");
+            }
+            
+            if ($password == $confirmPass) {
+                $passwordKey = password_hash($password, PASSWORD_DEFAULT);
+                return [
+                    "data" => [
+                        $userManager->add(['username' => $username, 'password' => $passwordKey, 'email' => $email])
+                    ]
+                ];
+            }
 
         }
 
