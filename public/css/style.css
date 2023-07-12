@@ -51,6 +51,30 @@ header a {
     padding: 15px;
 }
 
+#new-topics {
+    border: 3px solid;
+    margin: 20px 0px;
+    padding: 15px 30px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-topics-wrapper {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+#new-topics-date {
+    font-size: 15px;
+}
+
+a.categories-links {
+    font-size: 22px;
+}
+
 .topic-author {
     border: 2px solid #6da1ef;
     border-radius: 5px;
