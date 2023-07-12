@@ -47,7 +47,7 @@
         public function createCategoryForm() {
 
             return [
-                "view" => VIEW_DIR."forum/createCategory.html"
+                "view" => VIEW_DIR."forum/createCategory.php"
             ];
 
         }
