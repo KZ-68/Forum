@@ -50,6 +50,20 @@
             );
         }
 
+        public function findTopicsWithLimit() {
+                
+            $sql = "SELECT *
+                    FROM ".$this->tableName."
+                    ORDER BY id_topic DESC
+                    LIMIT 5
+                    ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql), 
+                $this->className
+            );
+        }
+
         public function removeCategoryIdInTopics($id) {
             $sql = "UPDATE topic SET 
                     category_id = NULL
