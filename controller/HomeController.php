@@ -6,14 +6,22 @@
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\UserManager;
+    use Model\Managers\TopicManager;
+    use  Model\Managers\CategoryManager;
     
     class HomeController extends AbstractController implements ControllerInterface{
 
         public function index(){
             
-           
+            $topicManager = new TopicManager(); 
+            $categoryManager = new CategoryManager();
+            
                 return [
-                    "view" => VIEW_DIR."home.php"
+                    "view" => VIEW_DIR."home.php",
+                    "data" => [
+                        "topics" => $topicManager->findTopicsWithLimit(),
+                        "categories" => $categoryManager->findAll()
+                    ]
                 ];
             }
             
