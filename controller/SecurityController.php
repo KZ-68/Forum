@@ -100,9 +100,13 @@
                         ];
                 }
             }
-            
+                        
+        }
 
-            
-            
+        public function logout() {
+            $session = new Session();
+            if ($session->getUser() || $session->isAdmin()) {
+                unset($_SESSION['user']);
+            }
         }
     }
