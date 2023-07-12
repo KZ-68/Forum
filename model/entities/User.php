@@ -17,6 +17,11 @@
         public function __construct($data){         
             $this->hydrate($data);        
         }
+
+        public function __toString()
+        {
+                return $this->role;
+        }
  
         /**
          * Get the value of id
