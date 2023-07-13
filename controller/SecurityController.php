@@ -36,29 +36,41 @@
             $usernameExist = $userManager->findUserByUsername($username);
 
             // Si les champs sont valides :
-            if ($username && $email && $password && $confirmPass) {
-                // Je vérifie que l'email et le pseudonyme n'est pas déjà présent en bdd
-                if ($emailExist) {
-                    // Dans le cas contraire, j'affiche un message d'erreur générique.
-                    return [
-                        "view" => VIEW_DIR."security/register.php",
-                        $session->addFlash('error',"Email adress or Username already exist")
-                    ];
-                } else if ($usernameExist) {
-                    return [
-                        "view" => VIEW_DIR."security/register.php",
-                        $session->addFlash('error',"Email adress or Username already exist")
-                    ];
+            if ($_POST["register"]) {
+                if ($username && $email && $password && $confirmPass) {
+                    // Je vérifie que l'email et le pseudonyme n'est pas déjà présent en bdd
+                    if ($emailExist) {
+                        // Dans le cas contraire, j'affiche un message d'erreur générique.
+                        return [
+                            header("Location: index.php?ctrl=security&action=registerForm"),
+                            $session->addFlash('error',"Email adress or Username already exist")
+                        ];
+                    } else if ($usernameExist) {
+                        return [
+                            header("Location: index.php?ctrl=security&action=registerForm"),
+                            $session->addFlash('error',"Email adress or Username already exist")
+                        ];
                     } else {
-                        // Je vérifie que le mot de passe est identique au second et que sa taille fait minimum 8 caractères (à développer vers un regex)
-                        if ($password == $confirmPass && strlen($password) >= 8) {
+                        $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
+                        /* Je vérifie que le mot de passe est identique au second, qu'il contient au moins une Majuscule, minuscule, un chiffre, 
+                        un caractère spécial et qu'il est minimum 8 caractères (Regex) */
+                        if ($password == $confirmPass && preg_match($password_regex, $password)) {
                             // Et si tout est bon, j'insère en base de donnée en utilisant password_hash sur le mot de passe.
-                            $userManager->add(['username' => $username, 'password' => password_hash($password, PASSWORD_DEFAULT), 'email' => $email]);
-                            header('Location : security/registerForm.php'); exit;
+                            $userManager->add(['username' => $username, 'password' => password_hash($password, PASSWORD_DEFAULT), 'email' => $email, 'role' => json_encode("ROLE_USER")]);
+                            return [
+                                header("Location: index.php?ctrl=security&action=loginForm")
+                            ];
+                        } else {
+                            return [
+                                header("Location: index.php?ctrl=security&action=registerForm"),
+                                $session->addFlash('error', "The password need a minimum of one uppercase, lowercase, digit, special character and a length of 8 characters")
+                            ];
                         }
+                        
                     }
-            } 
-
+                } 
+            }
+            
         }
 
         public function loginForm() {
@@ -83,19 +95,22 @@
                 if ($user) {
                     $hash = $user->getPassword(); 
                     if (password_verify($password, $hash)) {
-                        $session = new Session();
+
                         return [
+                            $user->setRole("ROLE_USER"),
                             $session->setUser($user),
-                            "view" => VIEW_DIR."forum/categoriesList.php"
+                            "view" => VIEW_DIR."home/home.php"
                         ];
                     } else {
-                        $session->addFlash('error',"Incorrect or inexistant password");
-                    }
-                    // On récupère le mot de passe
-                } else {
-                    $session = new Session();
                         return [
-                            "view" => VIEW_DIR."security/login.php",
+                            header("Location: index.php?ctrl=security&action=loginForm"),
+                            $session->addFlash('error',"Incorrect or inexistant password")
+                        ];
+                    }
+
+                } else {
+                        return [
+                            header("Location: index.php?ctrl=security&action=loginForm"),
                             $session->addFlash('error',"Username or password not found")
                         ];
                 }
@@ -107,6 +122,9 @@
             $session = new Session();
             if ($session->getUser() || $session->isAdmin()) {
                 unset($_SESSION['user']);
+                return [
+                    header("Location: index.php?ctrl=security&action=loginForm")
+                ];
             }
         }
     }
