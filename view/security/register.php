@@ -19,11 +19,11 @@
                     </div>
                     <div class="password">
                         <label class="pass" for="pass">Password (8 characters minimum):</label>
-                        <input type="password" id="pass" name="password" minlength="8" required>
+                        <input type="password" id="pass" name="password" required>
                         <input type="checkbox" onclick="togglePassword()">Show Password<br/>
                         <div class="confirmPassword">
                             <label for="confPass">Confirm Password:</label>
-                            <input type="password" id="confPass" name="confirmPassword" minlength="8" onblur="confirmPassword()">
+                            <input type="password" id="confPass" name="confirmPassword" onblur="confirmPassword()">
                         </div>
                     </div>
 
