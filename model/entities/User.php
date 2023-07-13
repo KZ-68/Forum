@@ -20,7 +20,7 @@
 
         public function __toString()
         {
-                return $this->role;
+                return $this->username;
         }
  
         /**
@@ -96,11 +96,17 @@
          *
          * @return  self
          */ 
-        public function hasRole($role)
+        public function setRole($role)
         {
-                $this->role = $role;
+                $role = json_decode($role);
+                var_dump($role);
+                if (empty($role)) {
+                        return $this->role[] = $role;
+                }
+        }
 
-                return $this;
+        public function hasRole($role) {
+                return in_array($role, ["ROLE_ADMIN","ROLE_USER"], true);
         }
 
            /**
