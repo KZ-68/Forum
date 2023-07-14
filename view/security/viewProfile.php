@@ -4,6 +4,8 @@ $user = $result["data"]['user'];
 
 ?>
 
+<button class="home-btn"><a href="index.php?ctrl=security&action=updateUserAccountForm&id=<?=App\Session::getUser()->getId()?>">Settings</a></button></br>
+
 <img src="public/img/<?=$user->getAvatar()?>">
 <form action="index.php?ctrl=forum&action=changeAvatar&id=<?=$user->getId()?>" method="post">
 <label>Change Avatar: </label><br/>
