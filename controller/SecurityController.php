@@ -95,12 +95,13 @@
                 if ($user) {
                     $hash = $user->getPassword(); 
                     if (password_verify($password, $hash)) {
-
+                        
                         return [
-                            $user->setRole("ROLE_USER"),
+                            $user->setRole($user->getRole()),
                             $session->setUser($user),
-                            "view" => VIEW_DIR."home/home.php"
+                            header("Location: index.php?ctrl=home&action=home")
                         ];
+                            
                     } else {
                         return [
                             header("Location: index.php?ctrl=security&action=loginForm"),
@@ -127,4 +128,18 @@
                 ];
             }
         }
+
+        public function viewProfile($id) {
+            
+            $userManager = new UserManager();
+            
+                return [
+                    "view" => VIEW_DIR."security/viewProfile.php",
+                    "data" => [
+                        "user" => $userManager->findOneById($id),
+                    ]
+                ];
+        }
+
+
     }
