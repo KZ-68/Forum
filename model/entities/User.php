@@ -99,10 +99,10 @@
         public function setRole($role)
         {
                 $role = json_decode($role);
-                var_dump($role);
                 if (empty($role)) {
                         return $this->role[] = $role;
                 }
+                return $this;
         }
 
         public function hasRole($role) {
