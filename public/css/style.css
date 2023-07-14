@@ -224,6 +224,22 @@ div.confirmPassword {
     left: 100px;
 }
 
+div.oldPassword {
+    position: relative;
+    left: 34px;
+}
+
+div.update-confirmPassword {
+    position: relative;
+    left: 133px;
+}
+
+.section_updateUserAccount {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #access {
     text-align: center;
 }
