@@ -33,7 +33,7 @@
                         
                         if(App\Session::getUser()){
                             ?>
-                            <a class="link-left" href="/security/viewProfile.html"><span class="fas fa-user"></span>&nbsp;<?=App\Session::getUser()?></a>
+                            <a class="link-left" href="index.php?ctrl=security&action=viewProfile&id=<?=App\Session::getUser()->getId()?>"><span class="fas fa-user"></span>&nbsp;<?=App\Session::getUser()?></a>
                             <a class="link-left" href="index.php?ctrl=security&action=logout">Déconnexion</a>
                             <?php
                         }
