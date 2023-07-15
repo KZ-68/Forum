@@ -142,7 +142,20 @@
                 ];
         }
 
+        public function changeAvatar($id) {
+            
+            $userManager = new UserManager();
 
+            $avatar = filter_input(INPUT_POST, 'avatar', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            return [
+                "data" => [
+                    $userManager->updateAvatar($avatar, $id),
+                    "user" => $userManager->findOneById($id),
+                ],
+                "view" => VIEW_DIR."security/updateUserAccountForm.php"
+            ];
+        }
 
         public function updateUserAccountForm($id) {
 
