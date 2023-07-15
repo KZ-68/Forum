@@ -12,7 +12,7 @@
             <h1>Modify Account Informations</h1>
             
                 <div class="updateUserAccount_wrapper">
-                    <form class='formular_base' action="index.php?ctrl=security&action=updateUserPassword&id=<?=App\Session::getUser()->getId()?>" method="post">
+                    <form class='formular-updateUserAccount' action="index.php?ctrl=security&action=updateUserPassword&id=<?=App\Session::getUser()->getId()?>" method="post">
                         
                         <div class="password">
                             <div class="oldPassword">
@@ -30,7 +30,17 @@
                             </div>
                         </div>
 
-                        <input id="submit" type="submit" name="update" value="update">
+                        <input id="submit-update-password" type="submit" name="update" value="update">
+                    </form>
+
+                    <form class='formular-updateUserAccount' action="index.php?ctrl=security&action=updateUserUsername&id=<?=App\Session::getUser()->getId()?>" method="post">
+                        
+                        <div class="updateUserUsername">
+                            <label class="username-label" for="username">Username :</label>
+                            <input type="text" id="update-username" name="username" placeholder="<?=App\Session::getUser()->getUsername()?>" required>
+                            <input id="submit-update-username" type="submit" name="update" value="update">
+                        </div>
+
                     </form>
                 </div>
             
