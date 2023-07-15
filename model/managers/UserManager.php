@@ -100,4 +100,14 @@
             return DAO::update($sql, [':password' => $password, ':id' => $id]); 
         }
 
+        public function updateUsername($username, $id) {
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    username = :username
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':username' => $username, ':id' => $id]); 
+        }
+
     }
