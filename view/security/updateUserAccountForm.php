@@ -1,7 +1,3 @@
-<?php
-    $user = $result["data"]['user'];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,17 +12,16 @@
             <h1>Modify Account Informations</h1>
             
                 <div class="updateUserAccount_wrapper">
-                    <form class='formular_base' action="index.php?ctrl=forum&action=updateUserPassword&id=<?=$user->getId()?>" method="post">
+                    <form class='formular_base' action="index.php?ctrl=security&action=updateUserPassword&id=<?=App\Session::getUser()->getId()?>" method="post">
                         
                         <div class="password">
                             <div class="oldPassword">
-                                <label class="oldPassord" for="oldPassord">Password (8 characters minimum):</label>
-                                <input type="password" id="oldPassord" name="oldPassword" required>
-                                <input type="checkbox" onclick="togglePassword()">Show Password<br/>
+                                <label class="password" for="password">Password (8 characters minimum):</label>
+                                <input type="password" id="password" name="password" required>
                             </div>
                             
                             <label class="pass" for="pass">New Password (8 characters minimum):</label>
-                            <input type="password" id="pass" name="password" required>
+                            <input type="password" id="pass" name="newPassword" required>
                             <input type="checkbox" onclick="togglePassword()">Show Password<br/>
                             
                             <div class="update-confirmPassword">
@@ -41,6 +36,7 @@
             
             </section>
     </main>
+    <script type ="text/javascript" src="public/js/formsActions.js"></script>
 </body>
 
 </html>
