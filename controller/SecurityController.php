@@ -216,11 +216,33 @@
             
         }
 
-        public function updateUsername($id) {
+        public function updateUserUsername($id) {
             
             $userManager = new UserManager();
 
+            $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
+            $user = $userManager->findOneById($id);
+
+            if ($_POST['update']) {
+                if ($username) {
+                    if ($user) {
+                        $oldUsername = $user->getUsername();
+                        if ($oldUsername != $username) {
+                            $userManager->updateUsername($username, $id);
+                            return [
+                                header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
+                                Session::addFlash('success',"Password successfully changed !")
+                            ];
+                        } else {
+                            return [
+                                header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
+                                Session::addFlash('error', 'New Username must be different')
+                            ];
+                        }
+                    }
+                }
+            }
         }
 
         public function updateUserEmail($id) {
