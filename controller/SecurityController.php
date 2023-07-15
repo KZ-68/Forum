@@ -35,8 +35,9 @@
             $emailExist = $userManager->findUserByEmail($email); 
             $usernameExist = $userManager->findUserByUsername($username);
 
-            // Si les champs sont valides :
+            // Si l'envoi du formulaire sous le nom "register" existe :
             if ($_POST["register"]) {
+                // Si les champs sont valides :
                 if ($username && $email && $password && $confirmPass) {
                     // Je vérifie que l'email et le pseudonyme n'est pas déjà présent en bdd
                     if ($emailExist) {
@@ -142,4 +143,75 @@
         }
 
 
+
+        public function updateUserAccountForm($id) {
+
+            $userManager = new UserManager();
+
+            return [
+                "view" => VIEW_DIR."security/updateUserAccountForm.php",
+                "data" => [
+                    "user" => $userManager->findOneById($id)
+                ]
+                ];
+
+        }
+
+        public function updateUserPassword($id) {
+            
+            $userManager = new UserManager();
+            $session = new Session();
+            
+            $oldPassword = filter_input(INPUT_POST, 'oldPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $confirmPass = filter_input(INPUT_POST, 'confirmPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $user = $userManager->findOneById($id);
+
+            if ($_POST['update']) {
+                die(var_dump($user));
+                // Vérifie les filtres
+                if ($oldPassword && $password && $confirmPass) {
+                    // Vérifie si l'utilisateur existe
+                    if ($user) {
+                        // On récupère le mot de passe en base de données
+                        $hash = $user->getPassword();
+                        $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
+                        // Si l'ancien mdp correspond au hash dans la bdd
+                        if (password_verify($oldPassword, $hash)) {
+                            // Si l'ancien mdp n'est pas idendique au nouveau
+                            if ($oldPassword != $password) {
+                                // Si le nouveau mdp correspond au champ de confirmation et au Regex choisis :
+                                if ($password === $confirmPass && preg_match($password_regex, $password)) {
+                                    $userManager->updatePassword(password_hash($password, PASSWORD_DEFAULT), $id);
+                                    return [
+                                        header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId()."")
+                                    ];
+                                }
+                            }
+                        } else {
+                            return [
+                                header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
+                                $session->addFlash('error',"Incorrect or inexistant password")
+                            ];
+                        }
+                        
+                    }
+                }  
+            }
+            
+            
+        }
+
+        public function updateUsername($id) {
+            
+            $userManager = new UserManager();
+
+
+        }
+
+        public function updateUserEmail($id) {
+            
+            $userManager = new UserManager();
+        }
     }
