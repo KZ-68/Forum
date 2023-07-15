@@ -90,4 +90,14 @@
             );
         }
 
+        public function updatePassword($password, $id) {
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    password = :password
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':password' => $password, ':id' => $id]); 
+        }
+
     }
