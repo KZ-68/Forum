@@ -247,6 +247,12 @@ div.update-confirmPassword {
     left: 133px;
 }
 
+.updateUserUsername {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 #access {
     text-align: center;
 }
