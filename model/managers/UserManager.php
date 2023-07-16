@@ -90,6 +90,21 @@
             );
         }
 
+        public function removeUser($id) {
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    email = NULL,
+                    username = 'Deleted User',
+                    role = NULL,
+                    password = NULL,
+                    registrationDate = NULL,
+                    avatar = 'sbcf-default-avatar.png'
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':id' => $id]); 
+        }
+
         public function updatePassword($password, $id) {
 
             $sql = "UPDATE ".$this->tableName." SET
