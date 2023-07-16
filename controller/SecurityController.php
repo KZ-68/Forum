@@ -198,7 +198,7 @@
                                     $userManager->updatePassword(password_hash($password, PASSWORD_DEFAULT), $id);
                                     return [
                                         header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
-                                        $session->addFlash('success',"Password successfully changed !")
+                                        $session->addFlash('success',"Password changed successfully !")
                                     ];
                                 }
                             }
@@ -232,12 +232,12 @@
                             $userManager->updateUsername($username, $id);
                             return [
                                 header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
-                                Session::addFlash('success',"Password successfully changed !")
+                                Session::addFlash('success',"Username changed successfully !")
                             ];
                         } else {
                             return [
                                 header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
-                                Session::addFlash('error', 'New Username must be different')
+                                Session::addFlash('error', 'The new username must be different')
                             ];
                         }
                     }
@@ -248,5 +248,39 @@
         public function updateUserEmail($id) {
             
             $userManager = new UserManager();
+
+            $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $confirmEmail = filter_input(INPUT_POST, 'confirmEmail', FILTER_VALIDATE_EMAIL, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            $user = $userManager->findOneById($id);
+
+            if ($_POST['update']) {
+                if ($email && $confirmEmail) {
+                    if ($user) {
+                        $oldEmail = $user->getEmail();
+                        if ($oldEmail != $email) {
+                            if ($email === $confirmEmail) {
+                                $userManager->updateEmail($email, $id);
+                                return [
+                                    header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
+                                    Session::addFlash('success',"E-mail adress changed successfully !")
+                                ];
+                            } else {
+                                return [
+                                    header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
+                                    Session::addFlash('error', "New e-mail or confirm e-mail adress isn't matching")
+                                ];
+                            }
+                        } else {
+                            return [
+                                header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
+                                Session::addFlash('error', "The new e-mail adress must be different")
+                            ];
+                        }
+                    }
+                }
+            }
+
         }
+
     }
