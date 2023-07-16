@@ -14,8 +14,8 @@
                     <div class="email">
                         <label class="email" for="email">E-mail Adress :</label>
                         <input name="email" type="email" id="email" required="1"><br/>
-                        <label class="emailConfirm" for="emailConfirm">Confirm E-mail Adress :</label>
-                        <input name="emailConfirm" type="email" id="confEmail" onblur="confirmEmail()">
+                        <label class="confirmEmail" for="confirmEmail">Confirm E-mail Adress :</label>
+                        <input name="confirmEmail" type="email" id="confEmail" onblur="confirmEmail()">
                     </div>
                     <div class="password">
                         <label class="pass" for="pass">Password (8 characters minimum):</label>
