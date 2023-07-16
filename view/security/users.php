@@ -11,7 +11,7 @@ foreach($users as $user){
         <img src="public/img/<?=$user->getAvatar()?>">
         <a class='links' href="index.php?ctrl=forum&action=detailUser&id=<?=$user->getId()?>"><?=$user->getUsername()?></a>
         <?=$user->getRegistrationdate()?>
-        <form action="index.php?ctrl=security&action=deleteUser&id=<?=$user->getId()?>" method="post">
+        <form action="index.php?ctrl=home&action=deleteUser&id=<?=$user->getId()?>" method="post">
             <input type="submit" name="deleteUser" value="Delete User">
         </form>
     </p>
