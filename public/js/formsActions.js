@@ -6,6 +6,14 @@ function confirmEmail() {
     }
 }
 
+function confirmNewEmail() {
+  let email = document.getElementById("email").value
+  let confemail = document.getElementById("confEmail").value
+  if(email != confemail) {
+      alert("New e-mail and e-mail confirmation isn't Matching!");
+  }
+}
+
 function togglePassword() {
     let x = document.getElementById("pass");
     if (x.type === "password") {
