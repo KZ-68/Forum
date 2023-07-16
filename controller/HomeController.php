@@ -39,6 +39,29 @@
             ];
         }
 
+        public function deleteUser($id) {
+
+            $userManager = new UserManager();
+
+            $user = $userManager->findOneById($id);
+
+            if ($_POST['deleteUser']) {
+                if ($user) {
+                    $userManager->removeUser($id);
+                    return [
+                        header('Location: index.php?ctrl=home&action=users'),
+                        Session::addFlash('success', 'User has been deleted successfully !')
+                    ];
+                } else {
+                    return [
+                        header('Location: index.php?ctrl=home&action=users'),
+                        Session::addFlash('error', 'User not found')
+                    ];
+                }  
+            } 
+
+        }
+ 
         public function forumRules(){
             
             return [
