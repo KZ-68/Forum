@@ -42,6 +42,21 @@
                         </div>
 
                     </form>
+
+                    <form class='formular-updateUserAccount' action="index.php?ctrl=security&action=updateUserEmail&id=<?=App\Session::getUser()->getId()?>" method="post">
+
+                        <div class="email">
+
+                            <label class="email" for="email">New E-mail Adress :</label>
+                            <input type="email" id="email" name="email" required="1"><br/>
+
+                            <label class="confirmEmail" for="confirmEmail">Confirm E-mail Adress :</label>
+                            <input type="email" id="confEmail" name="confirmEmail" onblur="confirmNewEmail()">
+                        </div>
+
+                        <input id="submit-update-email" type="submit" name="update" value="update">
+
+                    </form>
                 </div>
             
             </section>
