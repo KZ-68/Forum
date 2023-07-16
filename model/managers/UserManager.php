@@ -110,4 +110,14 @@
             return DAO::update($sql, [':username' => $username, ':id' => $id]); 
         }
 
+        public function updateEmail($email, $id) {
+
+            $sql = "UPDATE ".$this->tableName." SET
+                    email = :email
+                    WHERE id_".$this->tableName." = :id
+                    ";
+
+            return DAO::update($sql, [':email' => $email, ':id' => $id]); 
+        }
+
     }
