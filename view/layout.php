@@ -19,7 +19,7 @@
             <header>
                 <nav id="nav-header">
                     <div id="nav-right">
-                        <a href="/">Accueil</a>
+                        <a href="index.php?ctrl=home&action=home">Home Page</a>
                         <?php
                         if(App\Session::isAdmin()){
                             ?>
