@@ -23,7 +23,6 @@
 
         public function register() {
             $userManager = new UserManager();
-            $session = new Session();
 
             // Je filtre les saisies du formulaire
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -44,12 +43,12 @@
                         // Dans le cas contraire, j'affiche un message d'erreur générique.
                         return [
                             header("Location: index.php?ctrl=security&action=registerForm"),
-                            $session->addFlash('error',"Email adress or Username already exist")
+                            Session::addFlash('error',"Email adress or Username already exist")
                         ];
                     } else if ($usernameExist) {
                         return [
                             header("Location: index.php?ctrl=security&action=registerForm"),
-                            $session->addFlash('error',"Email adress or Username already exist")
+                            Session::addFlash('error',"Email adress or Username already exist")
                         ];
                     } else {
                         $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/";
@@ -64,7 +63,7 @@
                         } else {
                             return [
                                 header("Location: index.php?ctrl=security&action=registerForm"),
-                                $session->addFlash('error', "The password need a minimum of one uppercase, lowercase, digit, special character and a length of 8 characters")
+                                Session::addFlash('error', "The password need a minimum of one uppercase, lowercase, digit, special character and a length of 8 characters")
                             ];
                         }
                         
@@ -85,7 +84,6 @@
         public function login() {
             
             $userManager = new UserManager();
-            $session = new Session();
             
             $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -99,21 +97,21 @@
                         
                         return [
                             $user->setRole($user->getRole()),
-                            $session->setUser($user),
+                            Session::setUser($user),
                             header("Location: index.php?ctrl=home&action=home")
                         ];
                             
                     } else {
                         return [
                             header("Location: index.php?ctrl=security&action=loginForm"),
-                            $session->addFlash('error',"Incorrect or inexistant password")
+                            Session::addFlash('error',"Incorrect or inexistant password")
                         ];
                     }
 
                 } else {
                         return [
                             header("Location: index.php?ctrl=security&action=loginForm"),
-                            $session->addFlash('error',"Username or password not found")
+                            Session::addFlash('error',"Username or password not found")
                         ];
                 }
             }
@@ -125,7 +123,8 @@
             if ($session->getUser() || $session->isAdmin()) {
                 unset($_SESSION['user']);
                 return [
-                    header("Location: index.php?ctrl=security&action=loginForm")
+                    header("Location: index.php?ctrl=security&action=loginForm"),
+                    Session::addFlash('success',"User disconnected with success !")
                 ];
             }
         }
@@ -173,7 +172,6 @@
         public function updateUserPassword($id) {
             
             $userManager = new UserManager();
-            $session = new Session();
             
             $oldPassword = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $password = filter_input(INPUT_POST, 'newPassword', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -198,14 +196,14 @@
                                     $userManager->updatePassword(password_hash($password, PASSWORD_DEFAULT), $id);
                                     return [
                                         header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
-                                        $session->addFlash('success',"Password changed successfully !")
+                                        Session::addFlash('success',"Password changed successfully !")
                                     ];
                                 }
                             }
                         } else {
                             return [
                                 header("Location: index.php?ctrl=security&action=updateUserAccountForm&id=".$user->getId().""),
-                                $session->addFlash('error',"Incorrect or inexistant password")
+                                Session::addFlash('error',"Incorrect or inexistant password")
                             ];
                         }
                         
