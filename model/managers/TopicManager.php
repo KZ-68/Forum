@@ -24,7 +24,7 @@
                         t.creationdate
                     FROM ".$this->tableName." t
                     INNER JOIN category c ON c.id_category = t.category_id
-                    WHERE c.id_category = :id";
+                    WHERE t.category_id = :id";
 
             return $this->getMultipleResults(
                 DAO::select($sql, ['id' => $id], true), 
