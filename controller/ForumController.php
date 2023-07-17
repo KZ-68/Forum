@@ -143,7 +143,6 @@
 
             $categoryManager = new CategoryManager();
 
-
             return [
                 "view" => VIEW_DIR."forum/createTopic.php",
                 "data" => [
@@ -157,16 +156,18 @@
             
             $topicManager = new TopicManager();
             $postManager = new PostManager();
+            
+            $userId = Session::getUser()->getId();
 
             $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
             $categoryId = filter_input(INPUT_POST, 'category_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $idTopic = $topicManager->add(['category_id' => $categoryId, 'title' => $title]);
+            $idTopic = $topicManager->add(['user_id' => $userId, 'category_id' => $categoryId, 'title' => $title]);
 
             return [
                 "data" => [
-                    $postManager->add(['topic_id' => $idTopic, 'text' => $text])
-                ]
+                    $postManager->add(['user_id' => $userId, 'topic_id' => $idTopic, 'text' => $text])
+                ],
             ];
         }
 
@@ -205,13 +206,15 @@
             $topicManager = new TopicManager();
             $categoryManager = new CategoryManager();
 
+            $categoryId = $topicManager->findOneById($id);
+
             return [
                 "data" => [
-                    $topicManager->deleteTopic($id),
                     "topicsCategory" => $topicManager->findTopicsByCategoryId($id),
-                    "category" => $categoryManager->findOneById($id)
+                    "category" => $categoryManager->findOneById($id),
+                    $topicManager->deleteTopic($id)
                 ],
-                "view" => VIEW_DIR."forum/detailCategory.php"
+                header("Location: index.php?ctrl=forum&action=detailCategory&id=".$categoryId->getCategory()->getId()."")
             ];
         }
 
@@ -260,10 +263,12 @@
             $text = filter_input(INPUT_POST, 'text', FILTER_SANITIZE_SPECIAL_CHARS);
             $topicId = filter_input(INPUT_POST, 'topic_id', FILTER_SANITIZE_SPECIAL_CHARS);
 
+            $userId = Session::getUser()->getId();
+
             return [
                 "view" => VIEW_DIR."forum/detailTopic.php",
                 "data" => [
-                    $postManager->add(['topic_id' => $topicId ,'text' => $text], $id),
+                    $postManager->add(['user_id' => $userId, 'topic_id' => $topicId ,'text' => $text], $id),
                     "topics" => $topicManager->findOneById($id),
                     "postsUser" => $postManager->findPostsByTopicId($id),
                     "user" => $userManager->findUserByTopicId($id)
